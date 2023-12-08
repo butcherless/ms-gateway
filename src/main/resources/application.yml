@@ -5,6 +5,9 @@ logging:
   level:
     root: info
     org.springframework.boot: info
+    org.springframework.cloud: info
+    org.springframework.cloud.gateway.handler: debug
+    org.springframework.cloud.gateway.route: debug
 
 spring:
   application:
