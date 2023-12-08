@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: info
+    org.springframework.boot: info
+
+spring:
+  application:
+    name: "ms-gateway"
+  cloud:
+    gateway:
+      routes:
+        - id: ms-one
+          uri: ${GET_ROUTE_URI:http://localhost:8081}
+          predicates:
+            - Path=/countries/**
+          filters:
+            - PrefixPath=/ms-one
+            - AddResponseHeader=X-Powered-By,MS-Gateway
