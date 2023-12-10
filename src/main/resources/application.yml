@@ -22,3 +22,10 @@ spring:
           filters:
             - PrefixPath=/ms-one
             - AddResponseHeader=X-Powered-By,MS-Gateway
+        - id: ms-two
+          uri: ${GET_ROUTE_URI:http://localhost:8082}
+          predicates:
+            - Path=/airports/**
+          filters:
+            - PrefixPath=/ms-two
+            - AddResponseHeader=X-Powered-By,MS-Gateway
