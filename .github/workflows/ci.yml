@@ -19,16 +19,13 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '25'
-          cache: 'maven'
-      - name: Cache Maven dependencies
-        uses: actions/cache@v4
+      - name: Cache Maven dependencies and build outputs
+        uses: actions/cache@v5
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          path: |
+            ~/.m2/repository
+            ~/.m2/build-cache
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml', '.mvn/extensions.xml', '.mvn/maven-build-cache-config.xml') }}
           restore-keys: ${{ runner.os }}-maven-
-      - name: compile
-        run: ./mvnw -B -V compile
-      - name: test
-        run: ./mvnw -B test
-      - name: package
-        run: ./mvnw package -Dunit.test.skip
+      - name: Build and verify
+        run: ./mvnw -B -V clean verify
