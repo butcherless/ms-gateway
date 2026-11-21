@@ -6,5 +6,15 @@
   "schedule": "after 5pm every day",
   "extends": [
     "config:base"
+  ],
+  "packageRules": [
+    {
+      "description": "Spring Cloud release trains only support specific Spring Boot minors, so a Boot bump without the matching Cloud train fails the compatibility verifier at startup. Update both in one PR.",
+      "groupName": "spring boot and spring cloud",
+      "matchPackageNames": [
+        "org.springframework.boot:**",
+        "org.springframework.cloud:**"
+      ]
+    }
   ]
 }
